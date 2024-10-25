@@ -10,11 +10,10 @@ import {
   MAILER_TEST_HOST,
   MAILER_TEST_FROM,
   MAILER_TEST_PORT,
-  MAILER_TEST_SERVICE,
 } from "../constants/env";
 import pug from "pug";
 import { htmlToText } from "html-to-text";
-import { NodeMailerInterface, ExtendedMailType, BasicMailType } from "../types";
+import { NodeMailerInterface, ExtendedMailType, BasicMailType } from "../constants/types";
 
 export default class SMTPMailer implements NodeMailerInterface {
   private from: string = `BHP Project <${MAILER_STATUS === "prod" ? MAILER_PROD_FROM : MAILER_TEST_FROM}>`;
@@ -29,6 +28,16 @@ export default class SMTPMailer implements NodeMailerInterface {
       attachments: sendingOptions.attachments,
     };
     await this.createNewTransport()?.sendMail(mailOptions);
+  }
+  public async sendWelcome(options: BasicMailType) {
+    const html = this.renderTemplate({ ...options, html: "welcome" });
+    const extendedOptions = { ...options, html, subject: "Welcome in my application" };
+    await this.send(extendedOptions);
+  }
+  public async sendResetPassword(options: BasicMailType) {
+    const html = this.renderTemplate({ ...options, html: "reset" });
+    const extendedOptions = { ...options, html, subject: "It seems that you want to reset your password" };
+    await this.send(extendedOptions);
   }
   private renderTemplate(sendingOptions: ExtendedMailType) {
     return pug.renderFile(`../views/${sendingOptions.html}.pug`, {
@@ -60,15 +69,5 @@ export default class SMTPMailer implements NodeMailerInterface {
         },
       });
     }
-  }
-  public async sendWelcome(options: BasicMailType) {
-    const html = this.renderTemplate({ ...options, html: "welcome" });
-    const extendedOptions = { ...options, html, subject: "Welcome in my application" };
-    await this.send(extendedOptions);
-  }
-  public async sendResetPassword(options: BasicMailType) {
-    const html = this.renderTemplate({ ...options, html: "reset" });
-    const extendedOptions = { ...options, html, subject: "It seems that you want to reset your password" };
-    await this.send(extendedOptions);
   }
 }

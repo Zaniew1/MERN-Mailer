@@ -1,4 +1,4 @@
-import { NodeMailerInterface, ExtendedMailType, BasicMailType } from "./types";
+import { NodeMailerInterface, ExtendedMailType, BasicMailType } from "./constants/types";
 import SMTPMailer from "./mailers/mailerSMTP";
 import WebApiMailer from "./mailers/mailerWebApi";
 class Mailer implements NodeMailerInterface {
