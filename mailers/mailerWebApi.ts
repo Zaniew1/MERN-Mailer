@@ -22,8 +22,10 @@ export default class WebApiMailer implements NodeMailerInterface {
           category: "Notification",
           sandbox: true,
         });
+        return true;
       } catch (e) {
         console.log(e);
+        return false;
       }
     }
   }
@@ -65,8 +67,10 @@ export default class WebApiMailer implements NodeMailerInterface {
     sgMail.setApiKey(MAILER_WEBAPI_PROD_TOKEN);
     try {
       await sgMail.send(sendOptions);
+      return true;
     } catch (e: any) {
       console.log(e.response.body.errors);
+      return false;
     }
   }
 }
