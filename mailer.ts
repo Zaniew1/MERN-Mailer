@@ -7,13 +7,13 @@ class Mailer implements NodeMailerInterface {
     this.mailerClass = mailerClass;
   }
   public async send(sendingOptions: ExtendedMailType) {
-    this.mailerClass.send(sendingOptions);
+    return this.mailerClass.send(sendingOptions);
   }
   async sendWelcome(options: BasicMailType) {
-    this.mailerClass.sendWelcome(options);
+    return this.mailerClass.sendWelcome(options);
   }
   async sendResetPassword(options: BasicMailType) {
-    this.mailerClass.sendResetPassword(options);
+    return this.mailerClass.sendResetPassword(options);
   }
 }
 
