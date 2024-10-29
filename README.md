@@ -56,7 +56,7 @@ Below are all the necessary variables:
 # Setup instructions
 
 In order to get  MAILER_PROD_USERNAME and MAILER_PROD_PASSWORD, MAILER_WEBAPI_PROD_TOKEN you have to:
-- sign in at [Link Text](https://sendgrid.com/en-us/) 
+- sign in at [Sendgrid](https://sendgrid.com/en-us/) 
 - log in to a dashboard
 - go to *Settings* and click *Sender Authentication*
 - now create a sender (pass a mail, adress and where to reply your mails)
@@ -68,7 +68,7 @@ In order to get  MAILER_PROD_USERNAME and MAILER_PROD_PASSWORD, MAILER_WEBAPI_PR
 
 
 In order to get MAILER_TEST_USERNAME and MAILER_TEST_PASSWORD you have to:
-- sign in at [Link Text](https://mailtrap.io/home) 
+- sign in at [Mailtrap](https://mailtrap.io/home) 
 - log in to a dashboard
 - on the left nav menu click *Email Testing*, go to inboxes
 - create new Project
@@ -80,7 +80,7 @@ In order to get MAILER_TEST_USERNAME and MAILER_TEST_PASSWORD you have to:
 ```
 import {SMTPMailer} from "./NODE-Mailer/mailer.ts";
 
-SmtpMailer.send({name: "test", subject: "test", email: "test@test.com"});
+SmtpMailer.send({name: "test", subject: "test", message: "test message" email: "test@test.com"});
 
 ApiMailer.sendWelcome({name:"test", email: "test@test.com"});
 ```
