@@ -84,3 +84,7 @@ SmtpMailer.send({name: "test", subject: "test", message: "test message" email: "
 
 ApiMailer.sendWelcome({name:"test", email: "test@test.com"});
 ```
+
+# Structure 
+ 
+ ![Classes UML](documentation/UML.png)
