@@ -12,30 +12,40 @@ export default class WebApiMailer implements NodeMailerInterface {
       return this.sendProd(options);
     }
     // nodemailer - test API
-    if (MAILER_STATUS === "dev") {
-      try {
-        await this.createNewTransport().sendMail({
-          from: MAILER_TEST_FROM,
-          to: options.email,
-          subject: options.subject || "Brak tematu",
-          text: options.message || "Brak wiadomości",
-          category: "Notification",
-          sandbox: true,
-        });
-        return true;
-      } catch (e) {
-        console.log(e);
-        return false;
-      }
+    try {
+      await this.createNewTransport().sendMail({
+        from: MAILER_TEST_FROM,
+        to: options.email,
+        subject: options.subject || "Brak tematu",
+        text: options.message || "Brak wiadomości",
+        category: "Notification",
+        sandbox: true,
+      });
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
     }
   }
   public async sendWelcome(options: BasicMailType) {
     const extendedOptions = { ...options, template: "welcome", subject: "Welcome in my application" };
-    await this.send(extendedOptions);
+    try {
+      await this.send(extendedOptions);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   }
   public async sendResetPassword(options: BasicMailType) {
     const extendedOptions = { ...options, template: "reset", subject: "It seems that you want to reset your password" };
-    await this.send(extendedOptions);
+    try {
+      await this.send(extendedOptions);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   }
   private createNewTransport() {
     return nodemailer.createTransport(

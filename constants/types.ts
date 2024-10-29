@@ -1,7 +1,7 @@
 export interface NodeMailerInterface {
-  send(sendingOptions: ExtendedMailType): void;
-  sendWelcome(options: BasicMailType): Promise<void>;
-  sendResetPassword(options: BasicMailType): Promise<void>;
+  send(sendingOptions: ExtendedMailType): Promise<boolean>;
+  sendWelcome(options: BasicMailType): Promise<boolean>;
+  sendResetPassword(options: BasicMailType): Promise<boolean>;
 }
 
 export interface ExtendedMailType extends BasicMailType {

@@ -27,17 +27,35 @@ export default class SMTPMailer implements NodeMailerInterface {
       text: sendingOptions.message ?? htmlToText(this.renderTemplate(sendingOptions)),
       attachments: sendingOptions.attachments,
     };
-    await this.createNewTransport()?.sendMail(mailOptions);
+    try {
+      await this.createNewTransport()?.sendMail(mailOptions);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   }
   public async sendWelcome(options: BasicMailType) {
     const html = this.renderTemplate({ ...options, html: "welcome" });
     const extendedOptions = { ...options, html, subject: "Welcome in my application" };
-    await this.send(extendedOptions);
+    try {
+      await this.send(extendedOptions);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   }
   public async sendResetPassword(options: BasicMailType) {
     const html = this.renderTemplate({ ...options, html: "reset" });
     const extendedOptions = { ...options, html, subject: "It seems that you want to reset your password" };
-    await this.send(extendedOptions);
+    try {
+      await this.send(extendedOptions);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   }
   private renderTemplate(sendingOptions: ExtendedMailType) {
     return pug.renderFile(`../views/${sendingOptions.html}.pug`, {
